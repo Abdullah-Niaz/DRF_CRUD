@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 
 
 @api_view()
+# Fucntion Based API View
 def get_transaction(request):
     queryset = Transcations.objects.all()
     serializer = TransactionSerializer(queryset, many=True)
@@ -17,6 +18,7 @@ def get_transaction(request):
     )
 
 
+# Class Based API View
 class TransactionAPI(APIView):
     def get(self, request):
         return Response({
