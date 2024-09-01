@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import *
-from rest_framework.response import Response, JSONResponse
+from rest_framework.response import Response
 from .serializers import *
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
@@ -21,18 +21,23 @@ def get_transaction(request):
 # Class Based API View
 class TransactionAPI(APIView):
     def get(self, request):
+        queryset = Transcations.objects.all()
+        serializer = TransactionSerializer(queryset, many=True)
         return Response({
-            "message": "This is a GET request",
+            "data": serializer.data
+        }
+        )
+
+    def post(self, request):
+        dt = request.data
+        print(dt)
+        return Response({
+            "message": "Here is milk"
         })
 
     def put(self, request):
         return Response({
             "message": "This is a PUT request",
-        })
-
-    def post(self, request):
-        return Response({
-            "message": "This is a POST request",
         })
 
     def patch(self, request):
